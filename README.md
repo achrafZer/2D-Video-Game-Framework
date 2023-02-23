@@ -1,15 +1,35 @@
 
-# Projet: Framework pour le developpement de jeux vidéos 2D
+#2D Video Game Framework
 
-Le but du projet est de créer un framework qui facilite le developpement de jeux vidéos en 2D.
+##Presentation of the framework:
 
-Aucune installation n'est nécessaire, il suffit d'importer le projet comme librairie pour accéder aux fonctionnalités du framework.
+Welcome to the 2D Video Game Framework in Java!
+
+This software is a 2D game development framework that follows a Model-View-Controller (MVC) architecture to facilitate separation of concerns and code maintenance.
+
+The framework is organized into three main directories:
+
+###The controller directory:
+The controller directory contains the AI engine through the abstract class AIEngine, as well as the GameApp class which is the core of the program. Developers must extend this class to use the framework and add their own game logic.
+
+###The model directory:
+The model directory contains the physical engine, with primarily the PhysicalEngine class. This class manages the simulation of physical objects in the game such as collisions and movements.
+
+###Te view directory:
+The view directory contains the graphical engine, which manages the display of objects and backgrounds in the game. Developers can customize this part of the framework to create their game's user interface.
+
+The framework is designed to be easily extendable and customizable. Developers can add new functionality by extending existing classes or creating new classes.
+
+To get started with the framework, you can create a new class that extends GameApp and implement your own game logic in the provided methods. You can also use the AI engine to create enemies or non-player characters that react to the player's actions.
+
+For more information on using the framework, see the documentation provided in the docs directory. Here, you will find code examples and detailed explanations of each part of the framework.
+
+We hope this framework will be helpful for creating your 2D games. Please feel free to provide feedback and suggestions to improve this software.
 
 ## User Quickstart
 
-En tant que developpeur de jeux vidéos 2D qui souhaite utiliser notre framework, voici les étapes à suivre:
-
-1. Création de la classe MyGame: votre classe où vous allez commencer à construire votre jeu. Il faut bien penser à indiquer les dimension du plateau de jeu! Pour exploiter les fonctionnalités du framework, cette classe devra étendre le moteur kernel GameApp.
+If you want to use my framework, these are the steps you should follow:
+1. Extending GameApp in your main class:
 ```java
 import controller.GameApp;
 
@@ -22,22 +42,14 @@ public class MyGame extends GameApp{
     public void initEntities(){}
 }
 ```
-Comme on peut observer, votre classe elle devra implémenter les méthodes suivantes:
-```java
-public abstract void setManagers();
-public abstract void initEntities();
-```
+As you can see, your class must contain some code for the following methods: setManagers();initEntities();
 
-La méthode setManagers vous permettra de personnaliser la façon dont vous souhaitez gérer vos collisions entre entités ainsi que vos entrées clavier et/ou souris.
-Pour cela, vous devrez créer des gestionnaires. Si vous ne savez pas encore comment créer vos gestionnaires, vous pouvez simplement l'implémenter comme suit:
-```java
-public void setManagers() {
-        setInputsManager(new UserTestInputsManager());
-        setAiEngine(new UserTestAIEngine());
-    }
-```
+setManager should help you to create your own managers for collisions, inputs and AI. you should create them, and make 
+them as extensions to my own classes.
 
-La méthode initEntities est l'endroit où vous allez créer les entités de base de votre jeu. Il faudra, pour chaque entité, définir leur forme, position, mouvement, et les rajouter au plateau de jeu. Voici comment créer deux entités de base, un rectangle et un cercle:
+initEntitie is the method where you will create your initial entities. For every entity you create, you need to define 
+its for, position, movement and you need to add it to the game, using addEntity()
+
 
 ```java
 public void initEntities() {
@@ -57,9 +69,8 @@ public void initEntities() {
     }
 ```
 
-Biensur, d'autres méthodes peuvent être rajoutés dans cette classe pour faciliter la tâche de création des entités, ou même pour la création des gestionnaires. Cela dépend de l'utilisateur.
+To display the game, you have to call the launch method
 
-Finalement, pour lancer le jeu, on instance notre classe dans la méthode main et on fait appel à la méthode launch(). Cette méthode affichera le plateau de jeu avec les entités qu'on a rajouté et les mettra en mouvement:
 ```java
     public static void main(String[] args) throws Exception {
         MyGame mygame = new MyGame(500, 500);
